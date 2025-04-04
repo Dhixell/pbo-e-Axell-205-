@@ -1,15 +1,49 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
-    public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+class RekeningBank {
+    private final String nomorRekening;
+    private final String namaPemilik;
+    private double saldo;
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+    public RekeningBank(String nomorRekening, String namaPemilik, double saldo) {
+        this.nomorRekening = nomorRekening;
+        this.namaPemilik = namaPemilik;
+        this.saldo = saldo;
+    }
+
+    public void setor(double jumlah) {
+        saldo += jumlah;
+        System.out.println(namaPemilik + " menyetor Rp" + jumlah + ". Saldo sekarang: Rp" + saldo);
+    }
+
+    public void tarik(double jumlah) {
+        if (jumlah > saldo) {
+            System.out.println(namaPemilik + " menarik Rp" + jumlah + ". (Gagal, Saldo tidak mencukupi) Saldo saat ini: Rp" + saldo);
+        } else {
+            saldo -= jumlah;
+            System.out.println(namaPemilik + " menarik Rp" + jumlah + ". (Berhasil) Saldo sekarang: Rp" + saldo);
         }
+    }
+
+    public void tampilkanRekening() {
+        System.out.println("Nomor Rekening: " + nomorRekening);
+        System.out.println("Nama Pemilik: " + namaPemilik);
+        System.out.println("Saldo: Rp" + saldo);
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        RekeningBank rekening1 = new RekeningBank("202410370110205", "Axell", 500000);
+        RekeningBank rekening2 = new RekeningBank("202410370110222", "Azka", 1000000);
+
+        rekening1.tampilkanRekening();
+        rekening2.tampilkanRekening();
+
+        rekening1.setor(200000);
+        rekening2.setor(500000);
+
+        rekening1.tarik(800000);
+        rekening2.tarik(300000);
+
+        rekening1.tampilkanRekening();
+        rekening2.tampilkanRekening();
     }
 }
